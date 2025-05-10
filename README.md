@@ -69,4 +69,4 @@ educational_content_pipeline/
 └── setup.py
 ```
 ## Future Work
-We will officially release this Python Library to the open-source community later.
+We will formally release this Python Library to the open-source community after refinement.

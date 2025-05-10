@@ -11,7 +11,7 @@ For ease of use, please read the following usage rules in detail.
 - Text extraction from video (transcripts)
 - Semantic segmentation of text using LLMs
 - Video clipping based on timestamps
-- Named Entity Recognition (NER) for subject-specific concepts
+- Named Entity Recognition (NER) for educational concepts
 - Concept explanation generation using Wikipedia and LLMs
 - Image extraction from PDFs
 - Image-concept alignment using multimodal LLMs

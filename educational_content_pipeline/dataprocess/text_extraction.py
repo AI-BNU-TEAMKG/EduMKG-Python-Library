@@ -59,22 +59,9 @@ def extract_time_coded_content_from_docx(docx_file_path: str) -> List[str]:
         
         if i + 1 < len(sorted_time_codes):
             end_time_full = sorted_time_codes[i+1]
-            # Convert HH:MM:SS to MM:SS for range end if needed, or keep full
-            # Original code implied MM:SS for range: `time_code = line.split()[1]` and then `time_codes = sorted(list(time_coded_content.keys()))`
-            # Let's assume the key is HH:MM:SS and we want to present range as HH:MM:SS-HH:MM:SS
-            end_time = end_time_full
-            # Or if only MM:SS was intended for the ranges:
-            # start_time_short = ':'.join(start_time.split(':')[1:])
-            # end_time_short = ':'.join(end_time_full.split(':')[1:])
-            # formatted_output.append(f"{start_time_short}-{end_time_short}: {content}")
             formatted_output.append(f"{start_time}-{end_time}: {content}")
         else:
-            # For the last segment, we don't have an explicit end time from the next speaker.
-            # We could leave it open-ended, or estimate, or require a different format.
-            # Original code skips the last segment in the loop `range(len(time_codes)-1)`.
-            # Let's adhere to that, meaning the last speaker's content isn't ranged.
-            # If we want to include it:
-            # formatted_output.append(f"{start_time}-END: {content}")
+
             pass # Original logic implicitly skips the last segment for ranged output
 
     return formatted_output

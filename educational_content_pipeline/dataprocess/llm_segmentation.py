@@ -4,9 +4,7 @@ from ..utils.file_operations import ensure_directory_exists
 from ..utils.api_client import llm_client # Using the new client
 from .. import config
 
-# Global counter for LLM calls, if strictly needed, but better to manage per-session or remove.
-# For now, let's make it a class member if we wrap this, or pass a counter object.
-# Here, using a module-level variable as in the original, but with a warning.
+
 _LLM_CALL_COUNT = 0 
 
 def semantic_integrate_text_file(

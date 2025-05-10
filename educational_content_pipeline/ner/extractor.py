@@ -117,49 +117,15 @@ class ConceptExtractor:
             norm_score = (aggregated_sc_scores[idx] / potential_max_scores[idx]) if potential_max_scores[idx] > 0 else 0.0
 
             # Condition 1 from original: SC_ScoreG > 0.6
-            if norm_score > 0.6:
+            if norm_score > 0.7:
                 final_refined_set.add(concept)
-            # Condition 2 from original: max[index] == k (max score for *that specific iteration context*)
-            # This means if a concept survived all k_iterations for *any single model*, it's kept.
-            # The original 'max' list was per-timestamp, updated across models.
-            # Let's re-interpret: if aggregated_sc_scores[idx] is high relative to k_iterations for *any* model segment...
-            # Simpler: if it meets the 0.6 threshold OR if it was consistently validated (e.g. score == k_iterations for at least one model block)
-            # The original `max` was from one timestamp's item[4].
-            # Let's use: if it got a perfect score from any model's k_iterations run
-            # This requires tracking scores per model, which adds complexity.
-            # For now, sticking to the normalized score and the "perfect score in any k-run" idea.
-            # If a concept got a score equal to k_iterations for at least one model processing block:
-            # This is hard to check without more granular scoring.
-            # The original 'max' in candidate was `max_score_list` updated by `if i > j: max[index]=i`.
-            # Let's use simpler logic for now: if norm_score > 0.6.
-            # The original condition `if max[index] == k:` (where k was k_iterations)
-            # This means if a concept achieved the max possible score within a single model's k-iteration refinement.
-            # We can check if `aggregated_sc_scores[idx]` implies this for at least one model block.
-            # A concept would get `k_iterations` score from one model if it survived all its refinement rounds.
-            # If any concept has `aggregated_sc_scores[idx] >= self.k_iterations` (assuming only one model for simplicity now)
-            # or more generally, if `aggregated_sc_scores[idx]` contains a component that is `self.k_iterations`
-            # This part of logic needs the most care to match original intent.
+
 
             # For now, simplified:
             if aggregated_sc_scores[idx] > 0 and potential_max_scores[idx] > 0: # Has some validation
                  if (aggregated_sc_scores[idx] / potential_max_scores[idx]) > 0.6:
                     final_refined_set.add(concept)
-                 # Add a check for "perfect score in at least one model's k-iterations"
-                 # This would mean aggregated_sc_scores contains a component of value k_iterations
-                 # This requires more complex score tracking than current `aggregated_sc_scores`
-                 # For now, let's assume the 0.6 threshold is primary.
-                 # The original code `if max[index] == k: final_entity.add(i)` used `item[4]` which was `max_score_list`.
-                 # This `max_score_list` seemed to track the max score a concept achieved in any model's refinement pass.
-                 # Let's try to emulate that.
-                 # We need to track max_score_per_candidate_from_any_model_run
-                 # This part is complex to directly translate without running.
-                 # Simplified: if it passed the 0.6 threshold OR if it was very consistently validated
-                 # The second condition of original code `if max[index] == k:` (k=k_iterations) is critical.
-                 # This means if a concept perfectly survived *any* model's k-iteration refinement, it's in.
-                 # Let's assume `potential_max_scores` here is the total k_iterations * num_models.
-                 # So, if `aggregated_sc_scores[idx] == potential_max_scores[idx]`, it means perfect survival across all.
-                 # This isn't quite `max[index] == k`.
-                 # Let's assume `final_refined_set` uses the 0.6 rule for now. The "perfect k-run" rule is harder to implement here simply.
+
 
         return final_refined_set, aggregated_sc_scores, potential_max_scores, full_prompt_log
 
@@ -318,6 +284,3 @@ class ConceptExtractor:
         all_entities_file = os.path.join(output_base_dir, f"{self.subject}_all_unique_entities.json")
         write_json_file(sorted(list(self.all_entities_ever_extracted)), all_entities_file)
 
-# The original NER.py also had expandExplanations and conceptExpand.
-# These seem more related to the 'enrichment' phase and use ConceptNet/Wikipedia.
-# They will be moved to `enrichment/explanation_generator.py`.

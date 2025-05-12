@@ -16,7 +16,7 @@ For ease of use, please read the following usage rules in detail.
 - Image extraction from PDFs
 - Image-concept alignment using multimodal LLMs
 - Speech synthesis for explanations
-- Generation of structured JSON data for concepts, knowledge points, and images
+- Generation of structured JSON data for concepts, knowledge points, and image
 - Creation of RDF-like triples
 
 ## Installation

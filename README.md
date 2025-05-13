@@ -1,7 +1,7 @@
 # EduMKG-Python-Library
 This is a fully automated Python Library for constructing multimodal educational knowledge graphs. All you need to do is configure the large language model with its official API Key, as well as the paths to video and PDF lecture materials, to automatically build a multimodal educational knowledge graph covering four modalities: text, images, audio, and video.
 
-We have already used this Python Library to build a multimodal educational knowledge graph covering natural science subjects for middle and high school education, available at https://doi.org/10.5281/zenodo.15378631.
+We have already used this Python Library to build a multimodal educational knowledge graph covering natural science subjects for middle and high school education, available at https://zenodo.org/records/15386565.
 
 For ease of use, please read the following usage rules in detail.
 
